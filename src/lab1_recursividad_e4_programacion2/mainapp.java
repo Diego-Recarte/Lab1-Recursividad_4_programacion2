@@ -16,6 +16,7 @@ public class MainApp extends JFrame {
     private final PalindromoAir air = new PalindromoAir();
     private JPanel panelt;
     private JLabel [][] labels;
+    private JPanel panelL;
     // TODO (GUI): declarar componentes (botones de asiento, campo de nombre, consola).
 
     public MainApp() {
@@ -64,6 +65,49 @@ public class MainApp extends JFrame {
         
         
      }
+     private void initializename (){
+         
+         
+        
+         panelL = new JPanel();
+
+        panelL.setLayout(new BoxLayout(panelL, BoxLayout.Y_AXIS));
+        panelL.setPreferredSize(new Dimension(150, 200));
+        panelL.setOpaque(false);
+        panelL.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+         
+         
+         
+         JTextField campo = new JTextField();
+
+            campo.setText("");
+            campo.setFont(new Font("Arial", Font.PLAIN, 30));
+            campo.setPreferredSize(new Dimension(140, 30));
+
+            campo.setForeground(Color.BLACK);
+            campo.setBackground(Color.WHITE);
+            campo.setCaretColor(Color.BLACK);
+            campo.setBorder(BorderFactory.createEmptyBorder(5, 8, 5, 8));
+
+            campo.setHorizontalAlignment(SwingConstants.LEFT);
+            
+            
+            JLabel label = new JLabel("Name");
+
+            label.setFont(new Font("Arial", Font.BOLD, 14));
+            label.setForeground(Color.BLACK);
+            label.setOpaque(false);
+            label.setPreferredSize(new Dimension (50,20));
+
+            label.setHorizontalAlignment(SwingConstants.CENTER);
+            label.setPreferredSize(new Dimension(150, 30));
+            
+            panelL.add(label);
+            panelL.add(campo);
+            add(panelL, BorderLayout.NORTH);
+                 }
+     
+     
 
     // ---- Handlers de botones: TODO implementar (GUI) ----
 
