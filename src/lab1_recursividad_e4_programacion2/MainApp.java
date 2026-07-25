@@ -29,7 +29,6 @@ public class MainApp extends JFrame {
     //Consola
     private JTextArea txtMessages;
     private JScrollPane scrollMessages;
-    // TODO (GUI): declarar componentes (botones de asiento, campo de nombre, consola).
 
     public MainApp() {
         super("Aircraft");
@@ -52,23 +51,24 @@ public class MainApp extends JFrame {
             panelt.setLayout(new GridLayout(6, 5, 2, 2));
             panelt.setBackground(Color.BLACK);
 
-            for (int i = 0; i < 6; i++){
-                for (int j = 0; j < 5; j++){
-                    JPanel celda = new JPanel(new BorderLayout());
-                    celda.setBackground(Color.WHITE);
-                    celda.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+         for (int i = 0; i < 6; i++){
+             for (int j = 0; j < 5; j++){
+                 JPanel celda = new JPanel(new BorderLayout());
+                 celda.setBackground(Color.WHITE);
+                 celda.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
-                    labels[i][j] = new JLabel("Free", SwingConstants.CENTER);
-                    labels[i][j].setFont(new Font("Arial", Font.BOLD, 14));
-                    labels[i][j].setForeground(Color.BLACK);
-                    labels[i][j].setOpaque(true);
+                 labels[i][j] = new JLabel("Free", SwingConstants.CENTER);
+                 labels[i][j].setFont(new Font("Arial", Font.BOLD, 14));
+                 labels[i][j].setForeground(Color.BLACK);
+                 labels[i][j].setOpaque(true);
 
-                    celda.add(labels[i][j], BorderLayout.CENTER);
-                    panelt.add(celda);
-                }
-            }
-            
-            add(panelt);
+                 celda.add(labels[i][j], BorderLayout.CENTER);
+                 panelt.add(celda);
+             }
+         }
+
+
+         add(panelt);
         
      }
      private void initializeButtons(){
@@ -80,9 +80,11 @@ public class MainApp extends JFrame {
         panelBotones.add(btnSellTicket);
         
         btnCancelTicket = new JButton("Cancel Ticket");
+        btnCancelTicket.addActionListener(e -> onCancelTicket());
         panelBotones.add(btnCancelTicket);
 
         btnDispatch = new JButton("Dispatch");
+        btnDispatch.addActionListener(e -> onDispatch());
         panelBotones.add(btnDispatch);
 
         btnPrintPassengers = new JButton("Print Passengers");
@@ -90,6 +92,7 @@ public class MainApp extends JFrame {
         panelBotones.add(btnPrintPassengers);
 
         btnViewIncome = new JButton("View Income");
+        btnViewIncome.addActionListener(e -> onViewIncome());
         panelBotones.add(btnViewIncome);
 
         btnSearchPassenger = new JButton("Search Passenger");
@@ -115,19 +118,69 @@ public class MainApp extends JFrame {
       txtMessages.append("System ready.\n");
 }
 
-    // ---- Handlers de botones: TODO implementar (GUI) ----
+    // ---- Handlers de botones ----
 
     private void onSellTicket() {
-        // TODO: air.sellTicket(nombre)
-        txtMessages.append("Sell Ticket pressed.\n");
+        String name = JOptionPane.showInputDialog(this, "Passenger name:");
+        if (name == null || name.trim().isEmpty()) {
+            txtMessages.append("Sell cancelled: no name entered.\n");
+            return;
+        }
+        name = name.trim();
+
+        String ageStr = JOptionPane.showInputDialog(this, "Passenger age:");
+        if (ageStr == null) {
+            txtMessages.append("Sell cancelled.\n");
+            return;
+        }
+        int age;
+        try {
+            age = Integer.parseInt(ageStr.trim());
+        } catch (NumberFormatException ex) {
+            txtMessages.append("Sell failed: '" + ageStr.trim() + "' is not a valid age.\n");
+            return;
+        }
+
+        int seat = air.sellTicket(new Passenger(name, age));
+        if (seat == PalindromoAir.SEAT_FULL) {
+            txtMessages.append("Cannot sell: the plane is full.\n");
+        } else if (seat == PalindromoAir.NAME_TAKEN) {
+            txtMessages.append("Cannot sell: a passenger named '" + name + "' already exists.\n");
+        } else {
+            Ticket t = air.getSeat(seat);
+            txtMessages.append(String.format("Ticket sold to %s at seat %d. Paid $%.2f%s%n",
+                    name, seat + 1, t.getFinalAmount(),
+                    t.isPalindrome() ? " (palindrome discount applied!)" : ""));
+            refreshSeats();
+        }
     }
 
     private void onCancelTicket() {
-        // TODO: air.cancelTicket(nombre)
+        String name = JOptionPane.showInputDialog(this, "Passenger name to cancel:");
+        if (name == null || name.trim().isEmpty()) {
+            txtMessages.append("Cancel aborted: no name entered.\n");
+            return;
+        }
+        name = name.trim();
+        if (air.cancelTicket(name)) {
+            txtMessages.append("Ticket for '" + name + "' cancelled.\n");
+            refreshSeats();
+        } else {
+            txtMessages.append("No passenger named '" + name + "' was found.\n");
+        }
     }
 
     private void onDispatch() {
-        // TODO: air.dispatch()
+        int confirm = JOptionPane.showConfirmDialog(this,
+                "Dispatch reports total income and resets all seats. Continue?",
+                "Confirm Dispatch", JOptionPane.YES_NO_OPTION);
+        if (confirm != JOptionPane.YES_OPTION) {
+            txtMessages.append("Dispatch cancelled.\n");
+            return;
+        }
+        double total = air.dispatch();
+        txtMessages.append(String.format("Dispatch complete. Total income: $%.2f. All seats reset.%n", total));
+        refreshSeats();
     }
 
     private void onPrintPassengers() {
@@ -139,7 +192,8 @@ public class MainApp extends JFrame {
     }
 
     private void onViewIncome() {
-        // TODO: air.income(0)
+        double total = air.income(0);
+        txtMessages.append(String.format("Current income: $%.2f%n", total));
     }
 
     private void onSearchPassenger() {
