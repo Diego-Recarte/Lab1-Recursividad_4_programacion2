@@ -16,9 +16,11 @@ public class MainApp extends JFrame {
     private final PalindromoAir air = new PalindromoAir();
     private JPanel panelt;
     private JLabel [][] labels;
+    private JLabel title;
     // paneles de la GUI
     private JPanel panelBotones;
     private JPanel panelMensajes;
+    private JPanel panelTitulo;
     //Botones 
     private JButton btnSellTicket;
     private JButton btnCancelTicket;
@@ -29,6 +31,8 @@ public class MainApp extends JFrame {
     //Consola
     private JTextArea txtMessages;
     private JScrollPane scrollMessages;
+    
+    
 
     public MainApp() {
         super("Aircraft");
@@ -40,9 +44,31 @@ public class MainApp extends JFrame {
         initializeboard();
         initializeButtons();
         initializeMessages();
+        initializetitle();
         refreshSeats();
         setVisible(true);
         };
+    
+    private void initializetitle(){
+         panelTitulo = new JPanel();
+
+    panelTitulo.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
+    panelTitulo.setPreferredSize(new Dimension(400, 100));
+    panelTitulo.setOpaque(false);
+    
+    title = new JLabel("AIRCRAFT");
+
+    title.setFont(new Font("Arial", Font.BOLD, 40));
+    title.setForeground(Color.BLACK);
+    title.setOpaque(false);
+
+    title.setHorizontalAlignment(SwingConstants.CENTER);
+    title.setPreferredSize(new Dimension(400, 100));
+    
+    panelTitulo.add(title);
+    
+    add(panelTitulo, BorderLayout.NORTH);
+    }
      
      private void initializeboard(){
             panelt = new JPanel();
@@ -76,26 +102,32 @@ public class MainApp extends JFrame {
         panelBotones.setLayout(new GridLayout(3, 2, 10, 10));
         
         btnSellTicket = new JButton("Sell Ticket");
+        btnSellTicket.setBackground(Color.WHITE);
         btnSellTicket.addActionListener(e -> onSellTicket());
         panelBotones.add(btnSellTicket);
         
         btnCancelTicket = new JButton("Cancel Ticket");
+        btnCancelTicket.setBackground(Color.WHITE);
         btnCancelTicket.addActionListener(e -> onCancelTicket());
         panelBotones.add(btnCancelTicket);
 
         btnDispatch = new JButton("Dispatch");
+        btnDispatch.setBackground(Color.WHITE);
         btnDispatch.addActionListener(e -> onDispatch());
         panelBotones.add(btnDispatch);
 
         btnPrintPassengers = new JButton("Print Passengers");
+        btnPrintPassengers.setBackground(Color.WHITE);
         btnPrintPassengers.addActionListener(e -> onPrintPassengers());
         panelBotones.add(btnPrintPassengers);
 
         btnViewIncome = new JButton("View Income");
+        btnViewIncome.setBackground(Color.WHITE);
         btnViewIncome.addActionListener(e -> onViewIncome());
         panelBotones.add(btnViewIncome);
 
         btnSearchPassenger = new JButton("Search Passenger");
+        btnSearchPassenger.setBackground(Color.WHITE);
         btnSearchPassenger.addActionListener(e -> onSearchPassenger());
         panelBotones.add(btnSearchPassenger);
         
