@@ -12,6 +12,9 @@
 *.log
 *.tmp
 
+# Runtime data (pseudo-db)
+/tickets.csv
+
 # macOS
 .DS_Store
 

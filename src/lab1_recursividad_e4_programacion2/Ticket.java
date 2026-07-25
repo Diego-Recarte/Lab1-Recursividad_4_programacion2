@@ -3,20 +3,25 @@ package lab1_recursividad_e4_programacion2;
 /** Boleto emitido para un pasajero. Contenedor de datos, ya esta completo. */
 public class Ticket {
 
-    private final String name;
+    private final Passenger passenger;
     private final double finalAmount;
     private final double originalAmount;
     private final boolean palindrome;
 
-    public Ticket(String name, double finalAmount, double originalAmount, boolean palindrome) {
-        this.name = name;
+    public Ticket(Passenger passenger, double finalAmount, double originalAmount, boolean palindrome) {
+        this.passenger = passenger;
         this.finalAmount = finalAmount;
         this.originalAmount = originalAmount;
         this.palindrome = palindrome;
     }
 
+    public Passenger getPassenger() {
+        return passenger;
+    }
+
+    /** Atajo al nombre del pasajero (usado por las busquedas). */
     public String getName() {
-        return name;
+        return passenger.getName();
     }
 
     public double getFinalAmount() {
@@ -34,7 +39,7 @@ public class Ticket {
     public String print() {
         return String.format(
                 "%s | original: $%.2f | pagado: $%.2f | descuento palindromo: %s",
-                name, originalAmount, finalAmount, palindrome ? "SI" : "NO");
+                passenger, originalAmount, finalAmount, palindrome ? "SI" : "NO");
     }
 
     @Override

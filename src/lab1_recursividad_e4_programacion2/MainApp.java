@@ -27,7 +27,8 @@ public class MainApp extends JFrame {
     // ---- Handlers de botones: TODO implementar (GUI) ----
 
     private void onSellTicket() {
-        // TODO: air.sellTicket(nombre)
+        // TODO: construir new Passenger(id, nombre, edad) desde los campos y
+        //       llamar air.sellTicket(passenger); revisar SEAT_FULL / NAME_TAKEN.
     }
 
     private void onCancelTicket() {
