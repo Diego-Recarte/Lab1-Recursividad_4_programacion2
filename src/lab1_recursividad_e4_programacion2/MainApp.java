@@ -16,7 +16,6 @@ public class MainApp extends JFrame {
     private final PalindromoAir air = new PalindromoAir();
     private JPanel panelt;
     private JLabel [][] labels;
-    private JPanel panelL;
     // paneles de la GUI
     private JPanel panelBotones;
     private JPanel panelMensajes;
@@ -36,13 +35,13 @@ public class MainApp extends JFrame {
         super("Aircraft");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
         setSize(800, 600); 
-        setLayout(new BorderLayout(10, 10));
+        setLayout(new BorderLayout());
         getContentPane().setBackground(Color.WHITE); 
         setLocationRelativeTo(null); 
         initializeboard();
-        initializename();
         initializeButtons();
         initializeMessages();
+        refreshSeats();
         setVisible(true);
         };
      
@@ -62,6 +61,7 @@ public class MainApp extends JFrame {
                     labels[i][j] = new JLabel("Free", SwingConstants.CENTER);
                     labels[i][j].setFont(new Font("Arial", Font.BOLD, 14));
                     labels[i][j].setForeground(Color.BLACK);
+                    labels[i][j].setOpaque(true);
 
                     celda.add(labels[i][j], BorderLayout.CENTER);
                     panelt.add(celda);
@@ -71,42 +71,6 @@ public class MainApp extends JFrame {
             add(panelt);
         
      }
-     private void initializename (){
-         panelL = new JPanel();
-         panelL.setLayout(new BoxLayout(panelL, BoxLayout.Y_AXIS));
-         panelL.setPreferredSize(new Dimension(150, 200));
-         panelL.setOpaque(false);
-         panelL.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-
-         JTextField campo = new JTextField();
-
-            campo.setText("");
-            campo.setFont(new Font("Arial", Font.PLAIN, 30));
-            campo.setPreferredSize(new Dimension(140, 30));
-
-            campo.setForeground(Color.BLACK);
-            campo.setBackground(Color.WHITE);
-            campo.setCaretColor(Color.BLACK);
-            campo.setBorder(BorderFactory.createEmptyBorder(5, 8, 5, 8));
-
-            campo.setHorizontalAlignment(SwingConstants.LEFT);
-            
-            
-            JLabel label = new JLabel("Name");
-
-            label.setFont(new Font("Arial", Font.BOLD, 14));
-            label.setForeground(Color.BLACK);
-            label.setOpaque(false);
-            label.setPreferredSize(new Dimension (50,20));
-
-            label.setHorizontalAlignment(SwingConstants.CENTER);
-            label.setPreferredSize(new Dimension(150, 30));
-            
-            panelL.add(label);
-            panelL.add(campo);
-            add(panelL, BorderLayout.NORTH);
-     }
-     
      private void initializeButtons(){
         panelBotones = new JPanel(); 
         panelBotones.setLayout(new GridLayout(3, 2, 10, 10));
@@ -176,8 +140,26 @@ public class MainApp extends JFrame {
         dialog.setVisible(true);
     }
 
+    // Colores de asiento
+    private static final Color COLOR_FREE = new Color(76, 175, 80);   // verde
+    private static final Color COLOR_TAKEN = new Color(229, 57, 53);  // rojo
+    private static final Color COLOR_PALINDROME = new Color(255, 193, 7); // dorado
+
+    /** Recorre los 30 asientos y actualiza texto y color segun el estado del avion (cargado del CSV). */
     private void refreshSeats() {
-        // TODO: recorrer asientos y actualizar color de cada boton
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < 5; j++) {
+                int seat = i * 5 + j;
+                Ticket t = air.getSeat(seat);
+                if (t == null) {
+                    labels[i][j].setText("Free");
+                    labels[i][j].setBackground(COLOR_FREE);
+                } else {
+                    labels[i][j].setText(t.getName());
+                    labels[i][j].setBackground(t.isPalindrome() ? COLOR_PALINDROME : COLOR_TAKEN);
+                }
+            }
+        }
     }
 
 }
