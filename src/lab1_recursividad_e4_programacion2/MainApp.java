@@ -17,6 +17,7 @@ public class mainapp extends JFrame {
     private JPanel panelt;
     private JLabel [][] labels;
     private JPanel panelL;
+<<<<<<< HEAD
     // paneles de la GUI
     private JPanel panelBotones;
     private JPanel panelMensajes;
@@ -33,6 +34,11 @@ public class mainapp extends JFrame {
     // TODO (GUI): declarar componentes (botones de asiento, campo de nombre, consola).
 
     public mainapp() {
+=======
+    // TODO (GUI): declarar componentes (botones de asiento, campo de nombre, consola).
+
+    public MainApp() {
+>>>>>>> d6c36873a6049a22eb010f79de0dc266eaa543dc
         super("Aircraft");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
         setSize(800, 600); 
@@ -41,6 +47,7 @@ public class mainapp extends JFrame {
         setLocationRelativeTo(null); 
          initializeboard();
          initializename ();
+<<<<<<< HEAD
          initializeButtons();
          initializeMessages();
         setVisible(true);
@@ -49,6 +56,9 @@ public class mainapp extends JFrame {
         
         
         
+=======
+        setVisible(true);
+>>>>>>> d6c36873a6049a22eb010f79de0dc266eaa543dc
         };
      
      private void initializeboard(){
@@ -75,6 +85,7 @@ public class mainapp extends JFrame {
             
             add(panelt);
         
+<<<<<<< HEAD
         
         
         
@@ -94,6 +105,16 @@ public class mainapp extends JFrame {
          
          
          
+=======
+     }
+     private void initializename (){
+         panelL = new JPanel();
+         panelL.setLayout(new BoxLayout(panelL, BoxLayout.Y_AXIS));
+         panelL.setPreferredSize(new Dimension(150, 200));
+         panelL.setOpaque(false);
+         panelL.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+>>>>>>> d6c36873a6049a22eb010f79de0dc266eaa543dc
          JTextField campo = new JTextField();
 
             campo.setText("");
@@ -121,6 +142,7 @@ public class mainapp extends JFrame {
             panelL.add(label);
             panelL.add(campo);
             add(panelL, BorderLayout.NORTH);
+<<<<<<< HEAD
                  }
      
      private void initializeButtons(){
@@ -155,6 +177,9 @@ public class mainapp extends JFrame {
       txtMessages.setWrapStyleWord(true);
       txtMessages.setFont(new Font("Arial", Font.PLAIN, 14));
 }
+=======
+     }
+>>>>>>> d6c36873a6049a22eb010f79de0dc266eaa543dc
 
     // ---- Handlers de botones: TODO implementar (GUI) ----
 
