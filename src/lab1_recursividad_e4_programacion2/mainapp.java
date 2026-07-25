@@ -17,6 +17,19 @@ public class mainapp extends JFrame {
     private JPanel panelt;
     private JLabel [][] labels;
     private JPanel panelL;
+    // paneles de la GUI
+    private JPanel panelBotones;
+    private JPanel panelMensajes;
+    //Botones 
+    private JButton btnSellTicket;
+    private JButton btnCancelTicket;
+    private JButton btnDispatch;
+    private JButton btnPrintPassengers;
+    private JButton btnViewIncome;
+    private JButton btnSearchPassenger;
+    //Consola
+    private JTextArea txtMessages;
+    private JScrollPane scrollMessages;
     // TODO (GUI): declarar componentes (botones de asiento, campo de nombre, consola).
 
     public mainapp() {
@@ -28,6 +41,7 @@ public class mainapp extends JFrame {
         setLocationRelativeTo(null); 
          initializeboard();
          initializename ();
+         initializeButtons();
         setVisible(true);
         
         
@@ -108,7 +122,30 @@ public class mainapp extends JFrame {
             add(panelL, BorderLayout.NORTH);
                  }
      
-     
+     private void initializeButtons(){
+        panelBotones = new JPanel(); 
+        panelBotones.setLayout(new GridLayout(3, 2, 10, 10));
+        
+        btnSellTicket = new JButton("Sell Ticket");
+        panelBotones.add(btnSellTicket);
+        
+        btnCancelTicket = new JButton("Cancel Ticket");
+        panelBotones.add(btnCancelTicket);
+
+        btnDispatch = new JButton("Dispatch");
+        panelBotones.add(btnDispatch);
+
+        btnPrintPassengers = new JButton("Print Passengers");
+        panelBotones.add(btnPrintPassengers);
+
+        btnViewIncome = new JButton("View Income");
+        panelBotones.add(btnViewIncome);
+
+        btnSearchPassenger = new JButton("Search Passenger");
+        panelBotones.add(btnSearchPassenger);
+        
+        add(panelBotones, BorderLayout.EAST);
+     }
 
     // ---- Handlers de botones: TODO implementar (GUI) ----
 
