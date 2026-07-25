@@ -23,34 +23,71 @@ public class PalindromoAir {
 
     // ---- Metodos recursivos: TODO implementar ----
 
-    /** Primer asiento libre desde index, o -1 si no hay. */
     public int firstAvailable(int index) {
-        return -1; // TODO recursivo
+        if (index >= CAPACITY) {
+            return -1;
+        }
+        if (seats[index] == null) {
+            return index;
+        }
+        return firstAvailable(index + 1);
     }
 
     /** Indice del pasajero con ese nombre, o -1 si no existe. */
     public int searchPassenger(String name, int index) {
-        return -1; // TODO recursivo
+        if (index >= CAPACITY) {
+            return -1;
+        }
+        if (seats[index] != null && seats[index].getName().equalsIgnoreCase(name)) {
+            return index;
+        }
+        return searchPassenger(name, index + 1);
     }
 
-    /** true si name es palindromo. */
+    /** true si name es palindromo (ignora mayusculas). */
     public boolean isPalindromo(String name) {
-        return false; // TODO recursivo
+        String clean = name.toLowerCase();
+        return isPalindromo(clean, 0, clean.length() - 1);
+    }
+
+    /** Compara los extremos avanzando hacia el centro. */
+    private boolean isPalindromo(String s, int left, int right) {
+        if (left >= right) {
+            return true;
+        }
+        if (s.charAt(left) != s.charAt(right)) {
+            return false;
+        }
+        return isPalindromo(s, left + 1, right - 1);
     }
 
     /** Texto con todos los pasajeros (usar Ticket.print()). */
     public String printPassengers(int index) {
-        return ""; // TODO recursivo
+        if (index >= CAPACITY) {
+            return "";
+        }
+        String current = seats[index] != null
+                ? "Asiento " + (index + 1) + ": " + seats[index].print() + "\n"
+                : "";
+        return current + printPassengers(index + 1);
     }
 
     /** Suma de los montos finales vendidos. */
     public double income(int index) {
-        return 0.0; // TODO recursivo
+        if (index >= CAPACITY) {
+            return 0.0;
+        }
+        double current = seats[index] != null ? seats[index].getFinalAmount() : 0.0;
+        return current + income(index + 1);
     }
 
     /** Libera todos los asientos. */
     public void reset(int index) {
-        // TODO recursivo
+        if (index >= CAPACITY) {
+            return;
+        }
+        seats[index] = null;
+        reset(index + 1);
     }
 
     // ---- Orquestacion (ya implementada) ----
