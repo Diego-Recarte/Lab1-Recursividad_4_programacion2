@@ -27,6 +27,7 @@ public class mainapp extends JFrame {
         getContentPane().setBackground(Color.WHITE); 
         setLocationRelativeTo(null); 
          initializeboard();
+         initializename ();
         setVisible(true);
         
         
