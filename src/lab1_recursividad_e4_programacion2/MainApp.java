@@ -76,6 +76,7 @@ public class MainApp extends JFrame {
         panelBotones.setLayout(new GridLayout(3, 2, 10, 10));
         
         btnSellTicket = new JButton("Sell Ticket");
+        btnSellTicket.addActionListener(e -> onSellTicket());
         panelBotones.add(btnSellTicket);
         
         btnCancelTicket = new JButton("Cancel Ticket");
@@ -104,12 +105,21 @@ public class MainApp extends JFrame {
       txtMessages.setLineWrap(true);
       txtMessages.setWrapStyleWord(true);
       txtMessages.setFont(new Font("Arial", Font.PLAIN, 14));
+      scrollMessages = new JScrollPane(txtMessages);
+      panelMensajes = new JPanel(new BorderLayout());
+      panelMensajes.add(scrollMessages, BorderLayout.CENTER);
+      panelMensajes.setBorder(BorderFactory.createTitledBorder("System Messages"));
+      panelMensajes.setPreferredSize(new Dimension(800, 150));
+      add(panelMensajes, BorderLayout.SOUTH);
+      txtMessages.append("Welcome to Palindromo Air!\n");
+      txtMessages.append("System ready.\n");
 }
 
     // ---- Handlers de botones: TODO implementar (GUI) ----
 
     private void onSellTicket() {
         // TODO: air.sellTicket(nombre)
+        txtMessages.append("Sell Ticket pressed.\n");
     }
 
     private void onCancelTicket() {
