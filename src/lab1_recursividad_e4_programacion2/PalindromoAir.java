@@ -6,6 +6,10 @@ public class PalindromoAir {
     public static final double BASE_PRICE = 100.0;
     public static final double PALINDROME_DISCOUNT = 0.20;
 
+    /** Codigos que puede devolver sellTicket cuando no se vende. */
+    public static final int SEAT_FULL = -1;   // avion lleno
+    public static final int NAME_TAKEN = -2;  // ya hay un pasajero con ese nombre
+
     private final Ticket[] seats = new Ticket[CAPACITY];
 
     public Ticket getSeat(int index) {
@@ -85,16 +89,23 @@ public class PalindromoAir {
         reset(index + 1);
     }
 
-    /** Vende un boleto; retorna el asiento asignado o -1 si el avion esta lleno. */
-    public int sellTicket(String name) {
+    /**
+     * Vende un boleto al pasajero dado. Retorna el asiento asignado,
+     * SEAT_FULL (-1) si el avion esta lleno, o NAME_TAKEN (-2) si ya existe
+     * un pasajero con ese nombre.
+     */
+    public int sellTicket(Passenger passenger) {
+        if (searchPassenger(passenger.getName(), 0) != -1) {
+            return NAME_TAKEN;
+        }
         int seat = firstAvailable(0);
         if (seat == -1) {
-            return -1;
+            return SEAT_FULL;
         }
-        boolean palindrome = isPalindromo(name);
+        boolean palindrome = isPalindromo(passenger.getName());
         double original = BASE_PRICE;
         double finalAmount = palindrome ? original * (1 - PALINDROME_DISCOUNT) : original;
-        seats[seat] = new Ticket(name, finalAmount, original, palindrome);
+        seats[seat] = new Ticket(passenger, finalAmount, original, palindrome);
         return seat;
     }
 
