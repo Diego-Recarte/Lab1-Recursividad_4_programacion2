@@ -11,7 +11,7 @@ import java.awt. *;
  * Colores de asiento: verde = libre, rojo = ocupado, azul/dorado = palindromo.
  * La logica vive en PalindromoAir; esta clase solo llama a sus metodos.
  */
-public class MainApp extends JFrame {
+public class mainapp extends JFrame {
 
     private final PalindromoAir air = new PalindromoAir();
     private JPanel panelt;
@@ -19,7 +19,7 @@ public class MainApp extends JFrame {
     private JPanel panelL;
     // TODO (GUI): declarar componentes (botones de asiento, campo de nombre, consola).
 
-    public MainApp() {
+    public mainapp() {
         super("Aircraft");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
         setSize(800, 600); 
