@@ -1,0 +1,21 @@
+# NetBeans Ant build output
+/build/
+/dist/
+
+# NetBeans per-user private config (machine-specific, don't commit)
+/nbproject/private/
+
+# Compiled class files
+*.class
+
+# Logs and temp
+*.log
+*.tmp
+
+# macOS
+.DS_Store
+
+# IDE (other than NetBeans)
+.idea/
+*.iml
+.vscode/
