@@ -11,6 +11,12 @@ public class PalindromoAir {
     public static final int NAME_TAKEN = -2;  // ya hay un pasajero con ese nombre
 
     private final Ticket[] seats = new Ticket[CAPACITY];
+    private final TicketStorage storage = new TicketStorage();
+
+    /** Al crear el avion carga los tickets guardados (si el archivo existe). */
+    public PalindromoAir() {
+        storage.load(this);
+    }
 
     public Ticket getSeat(int index) {
         return seats[index];
@@ -18,6 +24,16 @@ public class PalindromoAir {
 
     public int getCapacity() {
         return CAPACITY;
+    }
+
+    /** Coloca un ticket directamente en un asiento; solo para la carga desde archivo. */
+    void restoreSeat(int index, Ticket ticket) {
+        seats[index] = ticket;
+    }
+
+    /** Guarda el estado actual del avion en el archivo. */
+    private void persist() {
+        storage.save(this);
     }
 
     // ---- Metodos recursivos: TODO implementar ----
@@ -106,6 +122,7 @@ public class PalindromoAir {
         double original = BASE_PRICE;
         double finalAmount = palindrome ? original * (1 - PALINDROME_DISCOUNT) : original;
         seats[seat] = new Ticket(passenger, finalAmount, original, palindrome);
+        persist();
         return seat;
     }
 
@@ -116,6 +133,7 @@ public class PalindromoAir {
             return false;
         }
         seats[seat] = null;
+        persist();
         return true;
     }
 
@@ -123,6 +141,7 @@ public class PalindromoAir {
     public double dispatch() {
         double total = income(0);
         reset(0);
+        persist();
         return total;
     }
 }

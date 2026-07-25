@@ -74,9 +74,7 @@ public class SearchPassengerPanel extends JPanel {
     /** Demo para ver el panel de forma independiente. */
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            PalindromoAir air = new PalindromoAir();
-            air.sellTicket(new Passenger("001", "Ana", 30));
-            air.sellTicket(new Passenger("002", "Marcelo", 25));
+            PalindromoAir air = new PalindromoAir(); // carga los pasajeros desde tickets.csv
 
             JFrame f = new JFrame("Demo - Search Passenger");
             f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
