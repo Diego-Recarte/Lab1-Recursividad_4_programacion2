@@ -1,10 +1,5 @@
 package lab1_recursividad_e4_programacion2;
 
-/**
- * Gestiona los 30 asientos del avion. Cada posicion es null (disponible) o
- * un Ticket (ocupado). Los metodos marcados con TODO se implementan de forma
- * recursiva (parte del equipo); la orquestacion de abajo ya esta lista.
- */
 public class PalindromoAir {
 
     public static final int CAPACITY = 30;
@@ -89,8 +84,6 @@ public class PalindromoAir {
         seats[index] = null;
         reset(index + 1);
     }
-
-    // ---- Orquestacion (ya implementada) ----
 
     /** Vende un boleto; retorna el asiento asignado o -1 si el avion esta lleno. */
     public int sellTicket(String name) {
