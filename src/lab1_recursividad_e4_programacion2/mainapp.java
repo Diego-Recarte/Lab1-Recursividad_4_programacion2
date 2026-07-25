@@ -42,6 +42,7 @@ public class mainapp extends JFrame {
          initializeboard();
          initializename ();
          initializeButtons();
+         initializeMessages();
         setVisible(true);
         
         
@@ -146,6 +147,11 @@ public class mainapp extends JFrame {
         
         add(panelBotones, BorderLayout.EAST);
      }
+     
+     private void initializeMessages(){
+      txtMessages = new JTextArea();
+      
+}
 
     // ---- Handlers de botones: TODO implementar (GUI) ----
 
