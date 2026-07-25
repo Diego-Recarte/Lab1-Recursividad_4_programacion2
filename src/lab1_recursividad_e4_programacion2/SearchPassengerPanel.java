@@ -61,12 +61,11 @@ public class SearchPassengerPanel extends JPanel {
                 + "-------------------%n"
                 + "Asiento   : %d%n"
                 + "Nombre    : %s%n"
-                + "Id        : %s%n"
                 + "Edad      : %d%n"
                 + "Original  : $%.2f%n"
                 + "Pagado    : $%.2f%n"
                 + "Palindromo: %s",
-                index + 1, p.getName(), p.getId(), p.getAge(),
+                index + 1, p.getName(), p.getAge(),
                 t.getOriginalAmount(), t.getFinalAmount(),
                 t.isPalindrome() ? "SI (descuento aplicado)" : "NO"));
     }

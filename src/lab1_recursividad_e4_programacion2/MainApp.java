@@ -11,13 +11,12 @@ import java.awt. *;
  * Colores de asiento: verde = libre, rojo = ocupado, azul/dorado = palindromo.
  * La logica vive en PalindromoAir; esta clase solo llama a sus metodos.
  */
-public class mainapp extends JFrame {
+public class MainApp extends JFrame {
 
     private final PalindromoAir air = new PalindromoAir();
     private JPanel panelt;
     private JLabel [][] labels;
     private JPanel panelL;
-<<<<<<< HEAD
     // paneles de la GUI
     private JPanel panelBotones;
     private JPanel panelMensajes;
@@ -33,32 +32,18 @@ public class mainapp extends JFrame {
     private JScrollPane scrollMessages;
     // TODO (GUI): declarar componentes (botones de asiento, campo de nombre, consola).
 
-    public mainapp() {
-=======
-    // TODO (GUI): declarar componentes (botones de asiento, campo de nombre, consola).
-
     public MainApp() {
->>>>>>> d6c36873a6049a22eb010f79de0dc266eaa543dc
         super("Aircraft");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
         setSize(800, 600); 
         setLayout(new BorderLayout(10, 10));
         getContentPane().setBackground(Color.WHITE); 
         setLocationRelativeTo(null); 
-         initializeboard();
-         initializename ();
-<<<<<<< HEAD
-         initializeButtons();
-         initializeMessages();
+        initializeboard();
+        initializename();
+        initializeButtons();
+        initializeMessages();
         setVisible(true);
-        
-        
-        
-        
-        
-=======
-        setVisible(true);
->>>>>>> d6c36873a6049a22eb010f79de0dc266eaa543dc
         };
      
      private void initializeboard(){
@@ -85,27 +70,6 @@ public class mainapp extends JFrame {
             
             add(panelt);
         
-<<<<<<< HEAD
-        
-        
-        
-        
-        
-     }
-     private void initializename (){
-         
-         
-        
-         panelL = new JPanel();
-
-        panelL.setLayout(new BoxLayout(panelL, BoxLayout.Y_AXIS));
-        panelL.setPreferredSize(new Dimension(150, 200));
-        panelL.setOpaque(false);
-        panelL.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-         
-         
-         
-=======
      }
      private void initializename (){
          panelL = new JPanel();
@@ -114,7 +78,6 @@ public class mainapp extends JFrame {
          panelL.setOpaque(false);
          panelL.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
->>>>>>> d6c36873a6049a22eb010f79de0dc266eaa543dc
          JTextField campo = new JTextField();
 
             campo.setText("");
@@ -142,8 +105,7 @@ public class mainapp extends JFrame {
             panelL.add(label);
             panelL.add(campo);
             add(panelL, BorderLayout.NORTH);
-<<<<<<< HEAD
-                 }
+     }
      
      private void initializeButtons(){
         panelBotones = new JPanel(); 
@@ -159,12 +121,14 @@ public class mainapp extends JFrame {
         panelBotones.add(btnDispatch);
 
         btnPrintPassengers = new JButton("Print Passengers");
+        btnPrintPassengers.addActionListener(e -> onPrintPassengers());
         panelBotones.add(btnPrintPassengers);
 
         btnViewIncome = new JButton("View Income");
         panelBotones.add(btnViewIncome);
 
         btnSearchPassenger = new JButton("Search Passenger");
+        btnSearchPassenger.addActionListener(e -> onSearchPassenger());
         panelBotones.add(btnSearchPassenger);
         
         add(panelBotones, BorderLayout.EAST);
@@ -177,9 +141,6 @@ public class mainapp extends JFrame {
       txtMessages.setWrapStyleWord(true);
       txtMessages.setFont(new Font("Arial", Font.PLAIN, 14));
 }
-=======
-     }
->>>>>>> d6c36873a6049a22eb010f79de0dc266eaa543dc
 
     // ---- Handlers de botones: TODO implementar (GUI) ----
 
@@ -196,7 +157,11 @@ public class mainapp extends JFrame {
     }
 
     private void onPrintPassengers() {
-        // TODO: air.printPassengers(0)
+        JDialog dialog = new JDialog(this, "Pasajeros a bordo", true);
+        dialog.setContentPane(new PrintPassengersPanel(air));
+        dialog.setSize(560, 400);
+        dialog.setLocationRelativeTo(this);
+        dialog.setVisible(true);
     }
 
     private void onViewIncome() {
@@ -204,10 +169,17 @@ public class mainapp extends JFrame {
     }
 
     private void onSearchPassenger() {
-        // TODO: air.searchPassenger(nombre, 0)
+        JDialog dialog = new JDialog(this, "Buscar pasajero", true);
+        dialog.setContentPane(new SearchPassengerPanel(air));
+        dialog.setSize(480, 320);
+        dialog.setLocationRelativeTo(this);
+        dialog.setVisible(true);
     }
 
     private void refreshSeats() {
         // TODO: recorrer asientos y actualizar color de cada boton
     }
+
 }
+
+

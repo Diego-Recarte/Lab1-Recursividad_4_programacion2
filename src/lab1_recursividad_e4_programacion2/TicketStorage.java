@@ -12,14 +12,14 @@ import java.io.PrintWriter;
  * Toda la logica de archivos vive aqui; PalindromoAir solo la invoca.
  *
  * Formato (una fila por asiento ocupado):
- *   seat,id,name,age,original,final,palindrome
+ *   seat,name,age,original,final,palindrome
  *
- * Nota: se asume que id y name NO contienen comas.
+ * Nota: se asume que name NO contiene comas.
  */
 public class TicketStorage {
 
     public static final String FILE_NAME = "tickets.csv";
-    private static final String HEADER = "seat,id,name,age,original,final,palindrome";
+    private static final String HEADER = "seat,name,age,original,final,palindrome";
 
     /** Escribe el estado actual del avion al archivo (sobreescribe). */
     public void save(PalindromoAir air) {
@@ -33,7 +33,6 @@ public class TicketStorage {
                 Passenger p = t.getPassenger();
                 out.println(String.join(",",
                         String.valueOf(i),
-                        p.getId(),
                         p.getName(),
                         String.valueOf(p.getAge()),
                         String.valueOf(t.getOriginalAmount()),
@@ -58,15 +57,15 @@ public class TicketStorage {
                 if (line.isBlank()) {
                     continue;
                 }
-                String[] f = line.split(",", 7);
-                if (f.length < 7) {
+                String[] f = line.split(",", 6);
+                if (f.length < 6) {
                     continue;
                 }
                 int seat = Integer.parseInt(f[0].trim());
-                Passenger p = new Passenger(f[1].trim(), f[2].trim(), Integer.parseInt(f[3].trim()));
-                double original = Double.parseDouble(f[4].trim());
-                double finalAmount = Double.parseDouble(f[5].trim());
-                boolean palindrome = Boolean.parseBoolean(f[6].trim());
+                Passenger p = new Passenger(f[1].trim(), Integer.parseInt(f[2].trim()));
+                double original = Double.parseDouble(f[3].trim());
+                double finalAmount = Double.parseDouble(f[4].trim());
+                boolean palindrome = Boolean.parseBoolean(f[5].trim());
                 if (seat >= 0 && seat < air.getCapacity()) {
                     air.restoreSeat(seat, new Ticket(p, finalAmount, original, palindrome));
                 }
